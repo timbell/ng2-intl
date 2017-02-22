@@ -235,7 +235,7 @@ export class IntlService {
       );
     }
 
-    if (!res && this.missingTranslationHandler) {
+    if (typeof res !== 'string' && this.missingTranslationHandler) {
       res = this.missingTranslationHandler.handle(key);
     }
 
