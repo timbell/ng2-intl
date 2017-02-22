@@ -197,7 +197,7 @@ export class FormatService {
     // Avoid expensive message formatting for simple messages without values. In
     // development messages will always be formatted in case of missing values.
     if (!hasValues) {
-      return message || defaultMessage || id;
+      return typeof message === 'string' ? message : defaultMessage || id;
     }
 
     let formattedMessage: string;
