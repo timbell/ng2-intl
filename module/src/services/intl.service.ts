@@ -32,6 +32,11 @@ export abstract class MissingTranslationHandler {
 @Injectable()
 export class IntlService {
   /**
+    * The lang currently used
+    */
+  public currentLang: string;
+
+  /**
    * An EventEmitter to listen to lang change events
    * onLangChange.subscribe((params: LangChangeEvent) => {
    *     // do something
@@ -45,11 +50,6 @@ export class IntlService {
   private defaultLang: string;
   private defaultFormat: any = {};
   private langs: Array<string> = [];
-
-  /**
-    * The lang currently used
-    */
-  public currentLang: string = this.defaultLang;
 
   constructor(public currentLoader: IntlLoader, @Optional() private missingTranslationHandler: MissingTranslationHandler) {
   }
