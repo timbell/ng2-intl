@@ -3,6 +3,7 @@
  */
 
 const webpack = require('webpack');
+const path = require('path');
 
 /**
  * Webpack Plugins
@@ -21,7 +22,7 @@ module.exports = {
   entry: './module/index.ts',
 
   output: {
-    path: __dirname + 'dist/bundles',
+    path: path.resolve(__dirname, 'dist/bundles'),
     publicPath: '/',
     filename: 'ng2-intl.umd.js',
     libraryTarget: 'umd',
