@@ -34,7 +34,7 @@ export class IntlService {
   /**
     * The lang currently used
     */
-  public currentLang: string = this.defaultLang;
+  public currentLang: string;
 
   /**
    * An EventEmitter to listen to lang change events

@@ -18,10 +18,8 @@
       "dom",
       "es6"
     ],
-    "types": [
-      "jasmine",
-      "node",
-      "lodash"
+    "typeRoots": [
+      "./node_modules/@types"
     ]
   },
   "exclude": [

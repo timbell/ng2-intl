@@ -21,7 +21,7 @@ module.exports = {
   entry: './module/index.ts',
 
   output: {
-    path: 'dist/bundles',
+    path: __dirname + 'dist/bundles',
     publicPath: '/',
     filename: 'ng2-intl.umd.js',
     libraryTarget: 'umd',
