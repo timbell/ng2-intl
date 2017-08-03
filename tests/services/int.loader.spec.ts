@@ -1,6 +1,5 @@
 import {Injector} from '@angular/core';
-import {ResponseOptions, Response, XHRBackend, HttpModule} from '@angular/http';
-import {MockBackend, MockConnection} from '@angular/http/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
 import {
   IntlModule,
@@ -11,34 +10,25 @@ import {
 
 import {getTestBed, TestBed} from '@angular/core/testing';
 
-const mockBackendResponse = (connection: MockConnection, response: string) => {
-    connection.mockRespond(new Response(new ResponseOptions({body: response})));
-};
-
+// NB tests currently broken - lodash/get in intl.service.ts is undefined. Maybe the same as this: https://github.com/AngularClass/angular-starter/issues/1724
 
 describe('IntlLoader', () => {
     let injector: Injector;
-    let backend: MockBackend;
     let translate: IntlService;
-    let connection: MockConnection; // this will be set when a new connection is emitted from the backend.
+    let httpMock: HttpTestingController;
 
     let prepare = (_injector: Injector) => {
-        backend = _injector.get(XHRBackend);
         translate = _injector.get(IntlService);
-        // sets the connection when someone tries to access the backend with an xhr request
-        backend.connections.subscribe((c: MockConnection) => connection = c);
+        httpMock = _injector.get(HttpTestingController);
     };
 
     it('should be able to provide IntlStaticLoader', () => {
         TestBed.configureTestingModule({
-            imports: [HttpModule, IntlModule.forRoot()],
-            providers: [
-                {provide: XHRBackend, useClass: MockBackend}
-            ]
+            imports: [HttpClientTestingModule, IntlModule.forRoot()],
         });
         injector = getTestBed();
         prepare(injector);
-
+        
         expect(translate).toBeDefined();
         expect(translate.currentLoader).toBeDefined();
         expect(translate.currentLoader instanceof IntlStaticLoader).toBeTruthy();
@@ -51,8 +41,11 @@ describe('IntlLoader', () => {
             expect(res).toEqual('This is a test');
         });
 
-        // mock response after the xhr request, otherwise it will be undefined
-        mockBackendResponse(connection, '{"TEST": "This is a test"}');
+        let req = httpMock.expectOne("i18n/en.json");
+        
+        req.flush({"TEST": "This is a test"});
+
+        httpMock.verify();
     });
 
     it('should be able to provide any IntlLoader', () => {
@@ -62,10 +55,7 @@ describe('IntlLoader', () => {
             }
         }
         TestBed.configureTestingModule({
-            imports: [HttpModule, IntlModule.forRoot({provide: IntlLoader, useClass: CustomLoader})],
-            providers: [
-                {provide: XHRBackend, useClass: MockBackend}
-            ]
+            imports: [HttpClientTestingModule, IntlModule.forRoot({provide: IntlLoader, useClass: CustomLoader})],
         });
         injector = getTestBed();
         prepare(injector);
