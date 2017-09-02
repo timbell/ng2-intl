@@ -181,6 +181,24 @@ export class FormatService {
     return this.processFormatMessage(message, descriptor, values);
   }
 
+  formatTextAsync(descriptor: MessageDescriptor, values = {}): Observable<string> {
+    let {
+      id
+    } = descriptor;
+
+    return Observable.create((observer: Observer<string>) => {
+        observer.next(this.processFormatMessage(id, descriptor, values));
+        observer.complete();
+    });
+  }
+  
+  formatText(descriptor: MessageDescriptor, values = {}): string {
+    let {
+      id
+    } = descriptor;
+    return this.processFormatMessage(id, descriptor, values);
+  }
+
   private processFormatMessage(message: string, descriptor: MessageDescriptor, values = {}): string {
     const {
       formats,
