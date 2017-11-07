@@ -1,6 +1,6 @@
 {
   "name": "ng2-intl-tb",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": true,
   "description": "Internationalize Angular2 apps. This library provides Angular2 components, pipe and an API to format dates, numbers, and strings, including pluralization and handling translations.",
   "keywords": [
@@ -50,8 +50,8 @@
     "lodash": "^4.16.6"
   },
   "peerDependencies": {
-    "@angular/core": "^4.0.0",
-    "@angular/common": "^4.0.0",
+    "@angular/core": "^4.0.0 || ^5.0.0",
+    "@angular/common": "^4.0.0 || ^5.0.0",
     "rxjs": "^5.0.1"
   },
   "devDependencies": {
