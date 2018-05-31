@@ -32,7 +32,7 @@ module.exports = {
   // require those dependencies but don't bundle them
   externals: [
     /^\@angular\//,
-    /^rxjs\//
+    /^rxjs/
   ],
 
   module: {
