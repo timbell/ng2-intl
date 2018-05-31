@@ -240,7 +240,7 @@ describe('IntlService', () => {
 //     it('should be able to provide any TranslateLoader', () => {
 //         class CustomLoader implements TranslateLoader {
 //             getTranslation(lang: string): Observable<any> {
-//                 return Observable.of({"TEST": "This is a test"});
+//                 return of({"TEST": "This is a test"});
 //             }
 //         }
 //         TestBed.configureTestingModule({

@@ -1,6 +1,6 @@
 import {Injector} from '@angular/core';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   IntlModule,
   IntlService,
@@ -51,7 +51,7 @@ describe('IntlLoader', () => {
     it('should be able to provide any IntlLoader', () => {
         class CustomLoader implements IntlLoader {
             getMessages(lang: string): Observable<any> {
-                return Observable.of({'TEST': 'This is a test'});
+                return of({'TEST': 'This is a test'});
             }
         }
         TestBed.configureTestingModule({
