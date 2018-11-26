@@ -219,19 +219,24 @@ export class FormatService {
 
     let formattedMessage: string;
 
-    if (message) {
-      try {
-        let formatter = formatters.getMessageFormat(
-          message, locale, formats
-        );
+    // Allow message to be an empty string
+    if (typeof message === 'string') {
+      if (message) {
+        try {
+          let formatter = formatters.getMessageFormat(
+            message, locale, formats
+          );
 
-        formattedMessage = formatter.format(values);
-      } catch (e) {
-        debug(
-          `[Ng2 Intl] Error formatting message: "${id}" for locale: "${locale}"` +
-          (defaultMessage ? ', using default message as fallback.' : '') +
-          `\n${e}`
-        );
+          formattedMessage = formatter.format(values);
+        } catch (e) {
+          debug(
+            `[Ng2 Intl] Error formatting message: "${id}" for locale: "${locale}"` +
+            (defaultMessage ? ', using default message as fallback.' : '') +
+            `\n${e}`
+          );
+        }
+      } else {
+        formattedMessage = message;
       }
     } else {
       if (!defaultMessage ||
